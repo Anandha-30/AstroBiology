@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AstroBio Explorer — Gap Analysis</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body data-page="analysis">
+    <!-- Background Layers -->
+    <div class="sky"><div class="stars"></div><div class="nebula"></div></div>
+
+    <!-- Header -->
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">🛰️ AstroBio Explorer</div>
+        <nav class="nav">
+          <a href="./index.html">Dashboard</a>
+          <a href="./search.html">Search</a>
+          <a href="./chat.html">Buddy</a>
+          <a href="./analysis.html" style="color: var(--fg);">Gaps</a>
+          <a href="./timeline.html">Timeline</a>
+          <a href="./gallery.html">Insights Hub</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="pill">Research Insights</div>
+        <h1>Gap Analysis & Research Insights</h1>
+        <p class="subtitle">
+          Identify underexplored areas and potential experiments for lunar and Martian bioscience.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container main">
+      <div class="grid">
+        <!-- Gap Analysis Card -->
+        <div class="card">
+          <h2>🔍 Analyze Research Gaps</h2>
+          <p class="meta">Enter a topic to discover missing research angles or experiment opportunities.</p>
+
+          <div class="rowless">
+            <input
+              id="gap-topic"
+              type="text"
+              placeholder="e.g., microbial mutation on Mars"
+            />
+            <button id="gap-run">Analyze gaps</button>
+          </div>
+
+          <div id="gap-result" class="result"></div>
+        </div>
+
+        <!-- Personalization Card -->
+        <div class="card">
+          <h2>🧬 Personalization (Local)</h2>
+          <p class="meta">Tailor recommendations based on your interests and role.</p>
+
+          <div class="grid">
+            <div>
+              <label for="user-role">Role</label>
+              <select id="user-role">
+                <option value="student">Student</option>
+                <option value="researcher">Researcher</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="user-interests">Interests</label>
+              <input
+                id="user-interests"
+                type="text"
+                placeholder="e.g., microgravity, plants, radiation"
+              />
+            </div>
+          </div>
+
+          <div class="rowless">
+            <button id="user-save">Save profile (local)</button>
+            <button id="reco-run">Get recommendations</button>
+          </div>
+
+          <div id="reco-result" class="result"></div>
+        </div>
+      </div>
+
+      <!-- Divider for optional future sections -->
+      <div class="divider"><span>Deep Space Analysis</span></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <small>© 2025 AstroBio Explorer — Bridging Earth & Space Biology</small>
+      </div>
+    </footer>
+
+    <!-- JS Integration (unchanged) -->
+    <script type="module" src="./src/index.js"></script>
+  </body>
+</html>

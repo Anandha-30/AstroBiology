@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AstroBio Explorer — Buddy</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="analysis">
+    <div class="sky"><div class="stars"></div><div class="nebula"></div></div>
+
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">🛰️ AstroBio Explorer</div>
+        <nav class="nav">
+          <a href="./index.html">Dashboard</a>
+          <a href="./search.html">Search</a>
+          <a href="./chat.html">Buddy</a>
+          <a href="./analysis.html">Gaps</a>
+          <a href="./timeline.html">Timeline</a>
+          <a href="./gallery.html">Insights Hub</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <h1>AstroBio Buddy</h1>
+        <p class="subtitle">Ask questions and get concise answers with references to demo corpus topics.</p>
+      </div>
+    </section>
+
+    <main class="container main">
+      <div class="card">
+        <h2>Chat</h2>
+        <div class="chat">
+          <div id="buddy-messages" class="chat-messages" aria-live="polite"></div>
+          <div class="chat-input">
+            <textarea id="buddy-input" rows="3" placeholder="Ask a question... e.g., What have we learned about bone density loss in astronauts?"></textarea>
+            <button id="buddy-send">Send</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer"><div class="container"><small>© 2025 AstroBio Explorer</small></div></footer>
+    <script type="module" src="./src/index.js"></script>
+  </body>
+</html>

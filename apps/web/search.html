@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AstroBio Explorer — Search</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="analysis">
+    <div class="sky"><div class="stars"></div><div class="nebula"></div></div>
+
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">🛰️ AstroBio Explorer</div>
+        <nav class="nav">
+          <a href="./index.html">Dashboard</a>
+          <a href="./search.html">Search</a>
+          <a href="./chat.html">Buddy</a>
+          <a href="./analysis.html">Gaps</a>
+          <a href="./timeline.html">Timeline</a>
+          <a href="./gallery.html">Insights Hub</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <h1>Semantic Search</h1>
+        <p class="subtitle">Search demo corpus with Gemini embeddings (or fallback BoW).</p>
+      </div>
+    </section>
+
+    <main class="container main">
+      <div class="card">
+        <h2>Search</h2>
+        <label for="search-query">Query</label>
+        <input id="search-query" type="text" placeholder="e.g., bone density microgravity" />
+        <div class="filters">
+          <input id="filter-organism" type="text" placeholder="organism (Human/Plant/Microbe)" />
+          <input id="filter-mission" type="text" placeholder="mission (ISS/Ground Analog)" />
+          <input id="filter-year" type="text" placeholder="year (e.g., 2018)" />
+        </div>
+        <button id="run-search">Search</button>
+        <div id="search-result" class="result"></div>
+      </div>
+    </main>
+
+    <footer class="footer"><div class="container"><small>© 2025 AstroBio Explorer</small></div></footer>
+    <script type="module" src="./src/index.js"></script>
+  </body>
+</html>

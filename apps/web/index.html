@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AstroBio Explorer</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* === Animation Enhancements === */
+
+      /* Floating cards */
+      .card {
+        position: relative;
+        animation: float 6s ease-in-out infinite;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 12px 36px rgba(0, 212, 255, 0.25);
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-6px); }
+      }
+
+      /* Hero entry animation */
+      .hero h1, .hero p, .hero .pill {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1.2s ease forwards;
+      }
+      .hero h1 { animation-delay: 0.2s; }
+      .hero p { animation-delay: 0.4s; }
+      .hero .pill { animation-delay: 0.6s; }
+
+      @keyframes fadeUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Planet hover glow */
+      .planet-svg {
+        transition: transform 1s ease, filter 0.6s ease;
+      }
+      .planet:hover .planet-svg {
+        transform: scale(1.08) rotate(2deg);
+        filter: drop-shadow(0 0 25px rgba(124,77,255,0.4));
+      }
+
+      /* Stars animation */
+      .stars {
+        animation: starDrift 60s linear infinite;
+      }
+      @keyframes starDrift {
+        from { transform: translate(0, 0); }
+        to { transform: translate(-200px, 200px); }
+      }
+
+      /* Nebula gentle motion */
+      .nebula {
+        animation: nebulaFloat 20s ease-in-out infinite alternate;
+      }
+      @keyframes nebulaFloat {
+        from { transform: scale(1) rotate(0deg); }
+        to { transform: scale(1.05) rotate(3deg); }
+      }
+
+      /* Section title glow */
+      h2 {
+        text-shadow: 0 0 8px rgba(124, 77, 255, 0.3);
+      }
+
+      /* Button hover pulse */
+      button {
+        position: relative;
+        overflow: hidden;
+      }
+      button::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      button:hover::after {
+        opacity: 1;
+        animation: pulse 1s ease;
+      }
+      @keyframes pulse {
+        0% { transform: scale(0.95); opacity: 0.4; }
+        50% { transform: scale(1.05); opacity: 0.2; }
+        100% { transform: scale(1); opacity: 0; }
+      }
+    </style>
+  </head>
+
+  <body data-page="analysis">
+    <!-- Sky backdrop -->
+    <div class="sky">
+      <div class="stars"></div>
+      <div class="nebula"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">🛰️ AstroBio Explorer</div>
+        <nav class="nav">
+          <a href="./index.html" style="color: var(--fg);">Dashboard</a>
+          <a href="./search.html">Search</a>
+          <a href="./chat.html">Buddy</a>
+          <a href="./analysis.html">Gaps</a>
+          <a href="./timeline.html">Timeline</a>
+          <a href="./gallery.html">Insights Hub</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="pill">Mission Control: Active</div>
+        <h1>Explore Bioscience for Moon & Mars</h1>
+        <p class="subtitle">
+          Summarize studies, search a demo corpus semantically, and discover insights from NASA’s bioscience archives.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main -->
+    <main class="container main">
+      <section class="divider"><span>🌌 Mars & Moon</span></section>
+
+      <!-- Planets -->
+      <section id="gallery" class="card section">
+        <div class="planet-grid">
+          <figure class="planet mars">
+            <svg class="planet-svg" viewBox="0 0 200 200" role="img" aria-label="Mars">
+              <defs>
+                <radialGradient id="marsGrad" cx="50%" cy="40%" r="60%">
+                  <stop offset="0%" stop-color="#ffb199"/>
+                  <stop offset="50%" stop-color="#ff5f6d"/>
+                  <stop offset="100%" stop-color="#c0392b"/>
+                </radialGradient>
+              </defs>
+              <circle cx="100" cy="100" r="90" fill="url(#marsGrad)"/>
+              <ellipse cx="120" cy="85" rx="40" ry="14" fill="rgba(120,25,20,0.35)"/>
+              <ellipse cx="80" cy="120" rx="50" ry="16" fill="rgba(120,25,20,0.28)"/>
+              <ellipse cx="110" cy="140" rx="30" ry="10" fill="rgba(120,25,20,0.22)"/>
+              <circle cx="70" cy="70" r="30" fill="rgba(255,255,255,0.12)"/>
+            </svg>
+            <figcaption>Mars • Microgravity effects on physiology & microbial evolution</figcaption>
+          </figure>
+
+          <figure class="planet moon">
+            <svg class="planet-svg" viewBox="0 0 200 200" role="img" aria-label="Moon">
+              <defs>
+                <radialGradient id="moonGrad" cx="45%" cy="40%" r="65%">
+                  <stop offset="0%" stop-color="#f2f4f8"/>
+                  <stop offset="60%" stop-color="#cfd5e3"/>
+                  <stop offset="100%" stop-color="#9aa4c7"/>
+                </radialGradient>
+              </defs>
+              <circle cx="100" cy="100" r="90" fill="url(#moonGrad)"/>
+              <circle cx="70" cy="80" r="12" fill="rgba(0,0,0,0.15)"/>
+              <circle cx="130" cy="60" r="8" fill="rgba(0,0,0,0.12)"/>
+              <circle cx="110" cy="120" r="10" fill="rgba(0,0,0,0.18)"/>
+              <circle cx="85" cy="135" r="6" fill="rgba(0,0,0,0.1)"/>
+              <ellipse cx="60" cy="65" rx="28" ry="18" fill="rgba(255,255,255,0.16)"/>
+            </svg>
+            <figcaption>Moon • Bioscience insights from Apollo, Artemis, ISS missions</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Cards Grid -->
+      <section class="grid">
+        <div class="card" id="status">
+          <h2>🛰️ API Status</h2>
+          <div id="health"></div>
+        </div>
+
+        <div class="card" id="summarization">
+          <h2>🧠 Summarization</h2>
+          <label for="sum-text">Input text</label>
+          <textarea id="sum-text" rows="8" placeholder="Paste an abstract or paragraph..."></textarea>
+          <label for="sum-lang">Language</label>
+          <select id="sum-lang">
+            <option value="en" selected>English</option>
+            <option value="es">Español</option>
+            <option value="hi">हिन्दी</option>
+          </select>
+          <button id="run-summarize">Summarize</button>
+          <div id="sum-result" class="result"></div>
+        </div>
+
+        <div class="card" id="search">
+          <h2>🔎 Semantic Search</h2>
+          <label for="search-query">Query</label>
+          <input id="search-query" type="text" placeholder="e.g., bone density microgravity" />
+          <div class="filters">
+            <input id="filter-organism" type="text" placeholder="organism (Human/Plant/Microbe)" />
+            <input id="filter-mission" type="text" placeholder="mission (ISS/Ground Analog)" />
+            <input id="filter-year" type="text" placeholder="year (e.g., 2018)" />
+          </div>
+          <button id="run-search">Search</button>
+          <div id="search-result" class="result"></div>
+        </div>
+      </section>
+
+      <section class="divider"><span>🚀 Advanced Features</span></section>
+
+      <section id="buddy" class="card section">
+        <h2>🤖 AstroBio Buddy</h2>
+        <p class="lead">AI-powered assistant for NASA bioscience data. Provides summaries, insights & paper links.</p>
+        <div class="chat">
+          <div id="buddy-messages" class="chat-messages"></div>
+          <div class="chat-input">
+            <textarea id="buddy-input" rows="3" placeholder="Ask something like: What have we learned about bone density loss in astronauts?"></textarea>
+            <button id="buddy-send">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="gap-analysis" class="card section">
+        <h2>🧬 Gap Analysis</h2>
+        <p class="lead">AI identifies underexplored research areas and suggests candidate experiments.</p>
+        <div class="rowless">
+          <input id="gap-topic" type="text" placeholder="Enter a topic, e.g., microbial mutation on Mars" />
+          <button id="gap-run">Analyze gaps</button>
+        </div>
+        <div id="gap-result" class="result"></div>
+      </section>
+
+      <section id="timeline" class="card section">
+        <h2>📆 Mission Timeline</h2>
+        <p class="lead">Interactive space mission timeline for bioscience experiments across Apollo, ISS, Artemis.</p>
+        <button id="timeline-load">Load timeline</button>
+        <div id="timeline-result" class="result"></div>
+      </section>
+
+      <section id="personalization" class="card section">
+        <h2>👩‍🚀 Personalization</h2>
+        <div class="grid">
+          <div>
+            <label for="user-role">Role</label>
+            <select id="user-role">
+              <option value="student">Student</option>
+              <option value="researcher">Researcher</option>
+            </select>
+          </div>
+          <div>
+            <label for="user-interests">Interests</label>
+            <input id="user-interests" type="text" placeholder="e.g., microgravity, plants, radiation" />
+          </div>
+        </div>
+        <div class="rowless">
+          <button id="user-save">Save profile (local)</button>
+          <button id="reco-run">Get recommendations</button>
+        </div>
+        <div id="reco-result" class="result"></div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <small>© 2025 AstroBio Explorer — Pushing the Frontiers of Space Biology</small>
+      </div>
+    </footer>
+
+    <!-- Backend Integration -->
+    <script type="module" src="./src/index.js"></script>
+  </body>
+</html>

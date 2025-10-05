@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AstroBio Explorer — Research Gallery</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body data-page="gallery">
+    <div class="sky"><div class="stars"></div><div class="nebula"></div></div>
+
+    <header class="topbar">
+      <div class="container">
+        <div class="brand">🛰️ AstroBio Explorer</div>
+        <nav class="nav">
+          <a href="./index.html">Dashboard</a>
+          <a href="./search.html">Search</a>
+          <a href="./chat.html">Buddy</a>
+          <a href="./analysis.html">Gaps</a>
+          <a href="./timeline.html">Timeline</a>
+          <a href="./gallery.html" class="active">Insights Hub</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <h1>Mars & Moon Bioscience Insight Hub</h1>
+        <p class="subtitle">
+          Explore space biology missions, visualize data, and identify new research opportunities.
+        </p>
+      </div>
+    </section>
+
+    <main class="container main">
+      <!-- 🌌 Mission Overview Cards -->
+      <section class="card section">
+        <h2>🧩 Active & Historical Missions</h2>
+        <div class="mission-grid">
+          <div class="mission-card">
+            <img src="./assets/images/mars-bioexp.jpg" alt="Mars MicroBioLab Study" />
+            <h3>Mars MicroBioLab (2024)</h3>
+            <p>Focus: Microbial mutation & nutrient cycles in Martian analog soil.</p>
+            <button class="btn-secondary" data-topic="microbial mutation">
+              View Data →
+            </button>
+          </div>
+
+          <div class="mission-card">
+            <img src="./assets/images/moon-radlab.jpg" alt="Lunar Radiation Study" />
+            <h3>Lunar RadLab</h3>
+            <p>Focus: Radiation-induced immune modulation under lunar dust exposure.</p>
+            <button class="btn-secondary" data-topic="radiation effects">
+              Analyze Gaps →
+            </button>
+          </div>
+
+          <div class="mission-card">
+            <img src="./assets/images/iss-bone.jpg" alt="ISS Bone Density Research" />
+            <h3>ISS BoneCell Study</h3>
+            <p>Focus: Long-term microgravity effects on osteoblast cell activity.</p>
+            <button class="btn-secondary" data-topic="bone density">
+              Summarize Findings →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 📊 Data Visualization Section -->
+      <section class="card section">
+        <h2>📈 Key Bioscience Metrics</h2>
+        <div class="visual-grid">
+          <div class="visual-card">
+            <canvas id="chart-bone"></canvas>
+            <p class="caption">Bone Density Changes Across Missions</p>
+          </div>
+          <div class="visual-card">
+            <canvas id="chart-radiation"></canvas>
+            <p class="caption">Radiation Exposure vs Immune Response</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 🤖 AI Gap Analysis Section -->
+      <section class="card section ai-insights">
+        <h2>🔬 AI Research Suggestions</h2>
+        <p class="lead">
+          Enter a topic or select a mission to discover underexplored research areas.
+        </p>
+        <input id="topic-input" type="text" placeholder="e.g., plant hormone signaling in microgravity" />
+        <button id="analyze-btn">Generate Insights</button>
+        <div id="ai-output" class="result"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <small>© 2025 AstroBio Explorer — NASA Bioscience Insight Hub</small>
+      </div>
+    </footer>
+
+    <script type="module">
+      // --- Chart Visualization ---
+      const ctx1 = document.getElementById('chart-bone');
+      new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: ['Earth', 'ISS', 'Moon', 'Mars'],
+          datasets: [{
+            label: 'Bone Density (%)',
+            data: [100, 91, 85, 80],
+            borderColor: '#ff7f50',
+            borderWidth: 2,
+            tension: 0.3,
+            fill: false
+          }]
+        },
+        options: { plugins: { legend: { labels: { color: 'white' } } },
+          scales: { x: { ticks: { color: 'white' } }, y: { ticks: { color: 'white' } } }
+        }
+      });
+
+      const ctx2 = document.getElementById('chart-radiation');
+      new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: ['ISS', 'Moon', 'Mars'],
+          datasets: [{
+            label: 'Radiation (mSv)',
+            data: [120, 300, 500],
+            backgroundColor: ['#42a5f5', '#64b5f6', '#90caf9']
+          }]
+        },
+        options: { plugins: { legend: { labels: { color: 'white' } } },
+          scales: { x: { ticks: { color: 'white' } }, y: { ticks: { color: 'white' } } }
+        }
+      });
+
+      // --- AI Gap Analysis Integration ---
+      document.getElementById('analyze-btn').addEventListener('click', async () => {
+        const topic = document.getElementById('topic-input').value.trim();
+        const resultDiv = document.getElementById('ai-output');
+        resultDiv.innerHTML = 'Analyzing... 🚀';
+
+        const response = await fetch('http://localhost:8000/gap', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ topic })
+        });
+
+        const data = await response.json();
+        resultDiv.innerHTML = `<pre>${data.analysis || 'No data available.'}</pre>`;
+      });
+
+      // --- Quick Buttons Trigger ---
+      document.querySelectorAll('.btn-secondary').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.getElementById('topic-input').value = btn.dataset.topic;
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AstroBio Explorer — Timeline</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body data-page="analysis">
+  <div class="sky"><div class="stars"></div><div class="nebula"></div></div>
+
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">🛰️ AstroBio Explorer</div>
+      <nav class="nav">
+        <a href="./index.html">Dashboard</a>
+        <a href="./search.html">Search</a>
+        <a href="./chat.html">Buddy</a>
+        <a href="./analysis.html" class="active">Gaps</a>
+        <a href="./timeline.html">Timeline</a>
+        <a href="./gallery.html">Insights Hub</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Mission Timeline</h1>
+      <p class="subtitle">
+        Summaries by mission (ISS, Apollo, Artemis) with study counts, events, and research highlights.
+      </p>
+    </div>
+  </section>
+
+  <main class="container main">
+    <div class="card">
+      <h2>Timeline Filters & Search</h2>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+        <input type="text" id="timeline-search" placeholder="Search missions or events..." style="flex:2 1 250px;" />
+        <select id="mission-filter" style="padding: .4rem .7rem; border-radius: 8px;">
+          <option value="All">All Missions</option>
+          <option value="ISS">ISS</option>
+          <option value="Apollo">Apollo</option>
+          <option value="Artemis">Artemis</option>
+        </select>
+        <button id="download-btn">Download Data</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Interactive Timeline Chart</h2>
+      <canvas id="timeline-chart"></canvas>
+      <p class="caption">Major mission events by year.</p>
+    </div>
+
+    <div class="card">
+      <h2>Study Type Breakdown</h2>
+      <canvas id="studytype-chart"></canvas>
+      <p class="caption">Study count by experiment category.</p>
+    </div>
+
+    <div class="card">
+      <h2>Mission Milestones</h2>
+      <ul class="timeline-list">
+        <li><strong>2020 — Artemis I Launch</strong>: Initiated lunar bioscience habitat tests.</li>
+        <li><strong>2022 — ISS MicroBio Study</strong>: Found mutation under microgravity.</li>
+        <li><strong>2023 — Apollo Soil Analysis</strong>: Discovered dormant microbes in lunar regolith.</li>
+        <li><strong>2025 — Artemis III Landing</strong>: First lunar plant growth experiment.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Key Discoveries & Highlights</h2>
+      <ul>
+        <li>Microgravity triggers adaptive mutations in bacteria.</li>
+        <li>Lunar dust alters immune cell signaling.</li>
+        <li>Artemis III achieved lunar plant sprouting.</li>
+        <li>ISS radiation countermeasures reduced DNA damage.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Featured Researcher</h2>
+      <div style="display: flex; gap: 1rem; align-items: center; text-align: left;">
+        <div>
+          <strong>Dr. Aisha Desai</strong><br>
+          Principal Investigator, Artemis III<br>
+          <span style="color:var(--muted);font-size:0.95em;">Plant adaptation in lunar habitats, 24+ published studies</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>© 2025 AstroBio Explorer</small>
+    </div>
+  </footer>
+  <script type="module">
+    const ctxTimeline = document.getElementById('timeline-chart').getContext('2d');
+    new Chart(ctxTimeline, {
+      type: 'line',
+      data: {
+        labels: ['2018','2020','2022','2023','2025'],
+        datasets: [{
+          label: 'Major Events',
+          data: [2,5,7,4,9],
+          borderColor: '#7c4dff',
+          borderWidth: 2,
+          tension: 0.3,
+          fill: false
+        }]
+      },
+      options: {
+        plugins: {legend:{labels:{color:'white'}}},
+        scales:{
+          x:{ticks:{color:'white'}},
+          y:{ticks:{color:'white'}}
+        }
+      }
+    });
+    const ctxStudy = document.getElementById('studytype-chart').getContext('2d');
+    new Chart(ctxStudy, {
+      type:'bar',
+      data:{
+        labels:['Microgravity','Radiation','Adaptation'],
+        datasets:[{
+          label:'Studies',
+          data:[14,6,9],
+          backgroundColor:['#7c4dff','#00d4ff','#12c2e9']
+        }]
+      },
+      options:{
+        plugins:{legend:{labels:{color:'white'}}},
+        scales:{
+          x:{ticks:{color:'white'}},
+          y:{ticks:{color:'white'}}
+        }
+      }
+    });
+    document.getElementById('download-btn').addEventListener('click',()=>{
+      alert('Download CSV coming soon!');
+    });
+    document.getElementById('mission-filter').addEventListener('change', e=>{
+      alert('Filter changed to: ' + e.target.value);
+    });
+    document.getElementById('timeline-search').addEventListener('input', e=>{
+      // Add search/filter logic here
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+:root {
+  --bg-0: #050815;
+  --bg-1: #0b1228;
+  --bg-2: #111a33;
+  --fg: #e6e9f5;
+  --muted: #9aa4c7;
+  --card: rgba(255,255,255,0.06);
+  --card-border: rgba(255,255,255,0.14);
+  --accent-0: #7c4dff;
+  --accent-1: #00d4ff;
+  --accent-2: #12c2e9;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  color: var(--fg);
+  background: radial-gradient(1200px 800px at 20% -10%, #0d1540 0%, var(--bg-0) 60%),
+              radial-gradient(900px 700px at 100% 0%, #1a0b2e 0%, var(--bg-0) 70%),
+              var(--bg-0);
+  overflow-x: hidden;
+}
+
+/* Starfield + nebula layers */
+.sky { position: fixed; inset: 0; z-index: -2; }
+.stars, .nebula { position: absolute; inset: 0; }
+.stars {
+  background:
+    radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.8), rgba(255,255,255,0) 60%),
+    radial-gradient(1.5px 1.5px at 70% 80%, rgba(255,255,255,.7), rgba(255,255,255,0) 60%),
+    radial-gradient(1.5px 1.5px at 40% 60%, rgba(255,255,255,.7), rgba(255,255,255,0) 60%),
+    radial-gradient(2px 2px at 85% 20%, rgba(255,255,255,.7), rgba(255,255,255,0) 60%),
+    radial-gradient(1px 1px at 10% 85%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%);
+  opacity: .7;
+  animation: twinkle 6s infinite ease-in-out alternate;
+}
+@keyframes twinkle { from { opacity: .55; } to { opacity: .85; } }
+.nebula {
+  background:
+    radial-gradient(1200px 800px at 10% -10%, rgba(124,77,255,.35), rgba(124,77,255,0) 50%),
+    radial-gradient(900px 700px at 90% 0%, rgba(18,194,233,.25), rgba(18,194,233,0) 60%),
+    conic-gradient(from 200deg at 70% 10%, rgba(0,212,255,.22), rgba(124,77,255,.30), rgba(18,194,233,.18), rgba(0,212,255,.22));
+  filter: blur(60px) saturate(140%);
+  mix-blend-mode: screen;
+  opacity: .65;
+}
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 1rem; }
+.topbar {
+  position: sticky; top: 0; z-index: 5;
+  background: linear-gradient(to bottom, rgba(5,8,21,.85), rgba(5,8,21,.55));
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.topbar .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.brand { font-weight: 700; letter-spacing: .2px; }
+.nav a { color: var(--muted); text-decoration: none; margin-left: 1rem; }
+.nav a:hover { color: var(--fg); }
+
+.hero { padding: 3.5rem 0 2rem; text-align: left; }
+.hero h1 { margin: 0 0 .5rem; font-size: clamp(1.6rem, 2.4vw, 2.4rem); }
+.subtitle { color: var(--muted); margin: 0 0 1rem; }
+.pill { display: inline-block; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); border-radius: 999px; padding: .35rem .75rem; color: var(--muted); font-size: .9rem; }
+
+.main { padding-bottom: 2rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+.card h2 { margin: 0 0 .75rem; font-size: 1.15rem; }
+
+label { display: block; font-weight: 600; margin: 0.5rem 0; }
+textarea, input[type="text"] {
+  width: 100%; padding: 0.6rem 0.65rem; border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(8,12,28,.6);
+  color: var(--fg);
+}
+textarea::placeholder, input::placeholder { color: #7b86a9; }
+
+button {
+  margin-top: 0.6rem; padding: 0.55rem 0.9rem; border-radius: 10px; cursor: pointer;
+  border: 1px solid rgba(124,77,255,.6);
+  background: linear-gradient(135deg, var(--accent-0), var(--accent-1));
+  color: white; font-weight: 600;
+}
+button:hover { filter: brightness(1.08); }
+
+.result { margin-top: 0.75rem; font-size: 0.95rem; }
+.row { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+.meta { color: var(--muted); font-size: 0.85rem; }
+.snippet { color: var(--fg); font-size: 0.95rem; margin-top: 0.25rem; }
+.score { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; color: #b7c2f3; }
+.filters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+
+/* Chat UI */
+.chat { display: grid; gap: .5rem; }
+.chat-messages { max-height: 300px; overflow-y: auto; border: 1px solid rgba(255,255,255,.12); background: rgba(8,12,28,.5); border-radius: 10px; padding: .75rem; }
+.chat-input { display: grid; grid-template-columns: 1fr auto; gap: .5rem; align-items: start; }
+.chat .bubble { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); padding: .5rem .65rem; border-radius: 10px; margin: .25rem 0; white-space: pre-wrap; }
+.chat .bubble.user { background: linear-gradient(135deg, rgba(124,77,255,.35), rgba(0,212,255,.25)); border-color: rgba(124,77,255,.6); }
+.rowless { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: .5rem; align-items: center; }
+
+.footer { text-align: center; padding: 2rem 1rem; color: var(--muted); }
+
+/* Section divider */
+.divider { display: flex; align-items: center; gap: 12px; margin: 2rem 0 1rem; }
+.divider::before, .divider::after {
+  content: ""; height: 1px; flex: 1;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.35), rgba(255,255,255,0));
+}
+.divider span { color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; }
+
+/* Feature sections */
+.section { margin: 1rem 0; }
+.section .lead { color: var(--muted); margin: .25rem 0 1rem; }
+.section ul { margin: .25rem 0 0 1rem; padding: 0; }
+.section li { margin: .25rem 0; }
+
+/* Planet gallery */
+.planet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; align-items: start; }
+.planet { text-align: center; }
+.planet-svg { width: 100%; height: auto; filter: drop-shadow(0 10px 24px rgba(0,0,0,.4)); border-radius: 12px; }
+.planet figcaption { color: var(--muted); margin-top: .5rem; }
+/* === Page-Specific Backgrounds === */
+body[data-page="index"] .sky {
+  background: url("../data/bg-mission.jpg") center/cover no-repeat fixed;
+  background-blend-mode: overlay;
+  background-color: #0b0f29;
+}
+
+body[data-page="search"] .sky {
+  background: url("../data/bg-datagalaxy.jpg") center/cover no-repeat fixed;
+  background-color: #050c2b;
+}
+
+body[data-page="chat"] .sky {
+  background: url("../data/bg-aiwave.jpg") center/cover no-repeat fixed;
+  background-color: #101022;
+}
+
+body[data-page="analysis"] .sky {
+  background: url("../data/bg-labnebula.jpg") center/cover no-repeat fixed;
+  background-color: #1a1636;
+}
+
+body[data-page="timeline"] .sky {
+  background: url("../data/bg-starscape.jpg") center/cover no-repeat fixed;
+  background-color: #091021;
+}
+
+body[data-page="gallery"] .sky {
+  background: url("../data/bg-galaxy.jpg") center/cover no-repeat fixed;
+  background-color: #0d0a2b;
+}
+.mission-grid, .visual-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.mission-card, .visual-card, .ai-insights {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+.mission-card:hover, .visual-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 20px rgba(0,255,255,0.2);
+}
+.btn-secondary {
+  margin-top: 1rem;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-secondary:hover { opacity: 0.8; }
+.mission-card img {
+  width: 100%;
+  max-width: 170px;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 14px auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
